@@ -37,6 +37,8 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'osx' \
   'ruby' \
+  'rails' \
+  'tmux' \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt'
@@ -123,7 +125,7 @@ zstyle ':prezto:module:ssh-agent' forwarding 'yes'
 #
 
 # Auto set the tab and window titles.
-zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'no'
 
 #
 # Tmux
