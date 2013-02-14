@@ -12,7 +12,7 @@ nnoremap <silent> ,t :CtrlPMixed<CR>
 
 " Additional mapping for buffer search
 nnoremap <silent> ,b :CloseSingleConque<CR>:CtrlPBuffer<cr>
-nnoremap <silent> <C-b> :CloseSingleConque<CR>:CtrlPBuffer<cr>
+" nnoremap <silent> <C-b> :CloseSingleConque<CR>:CtrlPBuffer<cr>
 
 " Cmd-Shift-P to clear the cache
 nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
