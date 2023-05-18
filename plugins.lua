@@ -1,4 +1,4 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -25,7 +25,7 @@ local plugins = {
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -44,6 +44,14 @@ local plugins = {
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
+    end,
+  },
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = false,
+    requires = { { "nvim-lua/plenary.nvim" }, { "kdheepak/lazygit.nvim" } },
+    config = function()
+      require("telescope").load_extension "lazygit"
     end,
   },
 
