@@ -5,6 +5,7 @@ core_packages=(
   'git' # Needed to fetch dotfiles
   'vim' # Needed to edit files
   'zsh' # Needed as bash is crap
+  'tmux'
 )
 
 # Checks if a given package is installed
@@ -35,7 +36,7 @@ function get_homebrew () {
 function multi_system_install () {
   app=$1
   {{ if eq .chezmoi.os "darwin" }}
-  if ! hash brew 2> /dev/null; then get_homebrew; fi
+  if ! command_exists brew; then get_homebrew; fi
   install_mac $app # MacOS via Homebrew
   {{ else if eq .chezmoi.os "linux" }}
   {{   if eq .chezmoi.osRelease.id "ubuntu" }}
@@ -48,7 +49,7 @@ function multi_system_install () {
 
 # For each app, check if not present and install
 for app in ${core_packages[@]}; do
-  if ! hash "${app}" 2> /dev/null; then
+  if ! command_exists ${app}; then
     multi_system_install $app
   else
     echo -e "${app} is already installed, skipping"
@@ -60,3 +61,6 @@ if [[ $SHELL != *"zsh"* ]] && command_exists zsh; then
   echo -e "Setting ZSH as default shell"
   chsh -s $(which zsh) $USER
 fi
+
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
