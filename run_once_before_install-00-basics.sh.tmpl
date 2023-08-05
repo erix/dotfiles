@@ -63,7 +63,7 @@ if [[ $SHELL != *"zsh"* ]] && command_exists zsh; then
 fi
 
 # Install oh-my-zsh
-if [ ! -d ~/.oh-my-zsh ]; then
+if [ ! -d $HOME/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
@@ -76,4 +76,4 @@ if [ -z ${XDG_DATA_HOME} ]; then
 fi
 
 # Install  Tmux Plugin Manager (TPM)
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
