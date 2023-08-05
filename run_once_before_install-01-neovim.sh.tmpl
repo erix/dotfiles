@@ -14,8 +14,12 @@ sudo apt install build-essential
 {{ end }}
 
 # Make sure we have clear install
-rm -rf ~/.config/nvim
-rm -rf ~/.local/share/nvim
+if [ -d $HOME/.config/nvimh ]; then
+  rm -rf $HOME/.config/nvim
+fi
+if [ -d $HOME/.local/share/nvim ]; then
+  rm -rf $HOME/.local/share/nvim
+fi
 
 # NvChad
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 && nvim
