@@ -66,3 +66,14 @@ fi
 if [ ! -d ~/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
+
+# If XDG variables arn't yet set, then configure defaults
+if [ -z ${XDG_CONFIG_HOME} ]; then
+  export XDG_CONFIG_HOME="${HOME}/.config"
+fi
+if [ -z ${XDG_DATA_HOME} ]; then
+  export XDG_DATA_HOME="${HOME}/.local/share"
+fi
+
+# Install  Tmux Plugin Manager (TPM)
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
