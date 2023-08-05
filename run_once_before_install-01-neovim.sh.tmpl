@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+# Neovim and NvChad dependencies install
+{{ if eq .chezmoi.os "darwin" }}
+brew install neovim
+brew install ripgrep
+{{ else if eq .chezmoi.os "linux" }}
+{{   if eq .chezmoi.osRelease.id "ubuntu" }}
+sudo apt install neovim
+sudo apt install ripgrep
+sudo apt install build-essential
+{{   end }}
+{{ end }}
+
+# NvChad
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
