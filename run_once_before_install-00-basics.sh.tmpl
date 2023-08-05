@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# List of apps to install
+core_packages=(
+  'git' # Needed to fetch dotfiles
+  'vim' # Needed to edit files
+  'zsh' # Needed as bash is crap
+)
+
+function install_debian () {
+  echo -e "Installing ${1} via apt-get"
+  sudo apt install $1
+}
+function install_arch () {
+  echo -e "Installing ${1} via Pacman"
+  sudo pacman -S $1
+}
+function install_mac () {
+  echo -e "Installing ${1} via Homebrew"
+  brew install $1
+}
+function get_homebrew () {
+  echo -e "Setting up Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  export PATH=/opt/homebrew/bin:$PATH
+}
+
+# Detect OS type, then triggers install using appropriate package manager
+function multi_system_install () {
+  app=$1
+  {{ if eq .chezmoi.os "darwin" }}
+  if ! hash brew 2> /dev/null; then get_homebrew; fi
+  install_mac $app # MacOS via Homebrew
+  {{ else if eq .chezmoi.os "linux" }}
+  {{   if eq .chezmoi.osRelease.id "ubuntu" }}
+  install_debian $app # Debian via apt-get
+  {{   end }}
+  {{ else }} 
+  echo -e "Skipping ${app}, as couldn't detect system type"
+  {{ end }}
+}
+
+# For each app, check if not present and install
+for app in ${core_packages[@]}; do
+  if ! hash "${app}" 2> /dev/null; then
+    multi_system_install $app
+  else
+    echo -e "${app} is already installed, skipping"
+  fi
+done
