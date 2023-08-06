@@ -15,5 +15,5 @@ alias lg=lazygit
 
 alias l='exa'
 alias la='exa -a'
-alias ll='exa -lah'
+alias ll='exa -lah --icons --sort=type'
 alias ls='exa --color=auto'
