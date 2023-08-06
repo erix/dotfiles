@@ -2,6 +2,7 @@
 {{ if eq .chezmoi.os "darwin" }}
 brew install bat
 brew install zoxide
+brew install lazygit
 {{ else if eq .chezmoi.os "linux" }}
 {{   if eq .chezmoi.osRelease.id "ubuntu" }}
 sudo apt install bat zoxide --assume-yes
@@ -11,5 +12,11 @@ if hash batcat 2> /dev/null; then
   mkdir -p ~/.local/bin
   ln -s /usr/bin/batcat ~/.local/bin/bat  
 fi
+
+# Install lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
 {{   end }}
 {{ end }}
