@@ -9,3 +9,11 @@ export PATH=$PATH:$HOME/.local/bin/
 # Antigen
 source ~/antigen.zsh
 antigen init ~/.antigenrc
+
+# Aliases
+lg = lazygit
+
+alias l='exa'
+alias la='exa -a'
+alias ll='exa -lah'
+alias ls='exa --color=auto'
