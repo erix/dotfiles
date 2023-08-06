@@ -1,17 +1,9 @@
 #!/bin/bash
-#
 
 echo -e "Setting up Neovim with NvChad"
 # Neovim and NvChad dependencies install
-{{ if eq .chezmoi.os "darwin" }}
 brew install neovim
 brew install ripgrep
-{{ else if eq .chezmoi.os "linux" }}
-{{   if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo snap install nvim --classic
-sudo apt install ripgrep build-essential
-{{   end }}
-{{ end }}
 
 # Make sure we have clear install
 if [ -d $HOME/.config/nvim ]; then

@@ -4,8 +4,6 @@
 core_packages=(
   'git' # Needed to fetch dotfiles
   'vim' # Needed to edit files
-  'zsh' # Needed as bash is crap
-  'tmux'
 )
 
 # Checks if a given package is installed
@@ -26,17 +24,11 @@ function install_mac () {
   echo -e "Installing ${1} via Homebrew"
   brew install $1
 }
-function get_homebrew () {
-  echo -e "Setting up Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  export PATH=/opt/homebrew/bin:$PATH
-}
 
 # Detect OS type, then triggers install using appropriate package manager
 function multi_system_install () {
   app=$1
   {{ if eq .chezmoi.os "darwin" }}
-  if ! command_exists brew; then get_homebrew; fi
   install_mac $app # MacOS via Homebrew
   {{ else if eq .chezmoi.os "linux" }}
   {{   if eq .chezmoi.osRelease.id "ubuntu" }}
@@ -55,22 +47,3 @@ for app in ${core_packages[@]}; do
     echo -e "${app} is already installed, skipping"
   fi
 done
-
-# set ZSH as default
-if [[ $SHELL != *"zsh"* ]] && command_exists zsh; then
-  echo -e "Setting ZSH as default shell"
-  chsh -s $(which zsh) $USER
-fi
-
-# If XDG variables arn't yet set, then configure defaults
-if [[ -z ${XDG_CONFIG_HOME} ]]; then
-  export XDG_CONFIG_HOME="${HOME}/.config"
-fi
-if [[ -z ${XDG_DATA_HOME} ]]; then
-  export XDG_DATA_HOME="${HOME}/.local/share"
-fi
-
-# Install  Tmux Plugin Manager (TPM)
-if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
-  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-fi
