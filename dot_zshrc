@@ -11,7 +11,7 @@ source ~/antigen.zsh
 antigen init ~/.antigenrc
 
 # Aliases
-lg = lazygit
+alias lg=lazygit
 
 alias l='exa'
 alias la='exa -a'
