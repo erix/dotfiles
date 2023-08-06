@@ -3,9 +3,11 @@
 brew install bat
 brew install zoxide
 brew install lazygit
+brew install fzf
+brew install exa
 {{ else if eq .chezmoi.os "linux" }}
 {{   if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo apt install bat zoxide --assume-yes
+sudo apt install bat exa zoxide fzf --assume-yes
 
 # fix the bat executable
 if hash batcat 2> /dev/null; then
@@ -18,5 +20,7 @@ LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/re
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
+rm lazygit.tar.gz
+rm lazygit
 {{   end }}
 {{ end }}
