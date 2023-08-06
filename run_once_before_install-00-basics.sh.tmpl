@@ -63,17 +63,19 @@ if [[ $SHELL != *"zsh"* ]] && command_exists zsh; then
 fi
 
 # Install oh-my-zsh
-if [ ! -d $HOME/.oh-my-zsh ]; then
+if [[ ! -d $HOME/.oh-my-zsh ]]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 # If XDG variables arn't yet set, then configure defaults
-if [ -z ${XDG_CONFIG_HOME} ]; then
+if [[ -z ${XDG_CONFIG_HOME} ]]; then
   export XDG_CONFIG_HOME="${HOME}/.config"
 fi
-if [ -z ${XDG_DATA_HOME} ]; then
+if [[ -z ${XDG_DATA_HOME} ]]; then
   export XDG_DATA_HOME="${HOME}/.local/share"
 fi
 
 # Install  Tmux Plugin Manager (TPM)
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
+  git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
