@@ -62,11 +62,6 @@ if [[ $SHELL != *"zsh"* ]] && command_exists zsh; then
   chsh -s $(which zsh) $USER
 fi
 
-# Install oh-my-zsh
-if [[ ! -d $HOME/.oh-my-zsh ]]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
 # If XDG variables arn't yet set, then configure defaults
 if [[ -z ${XDG_CONFIG_HOME} ]]; then
   export XDG_CONFIG_HOME="${HOME}/.config"
