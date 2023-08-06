@@ -8,7 +8,7 @@ brew install neovim
 brew install ripgrep
 {{ else if eq .chezmoi.os "linux" }}
 {{   if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo snap install nvim
+sudo snap install nvim --classic
 sudo apt install ripgrep build-essential
 {{   end }}
 {{ end }}
