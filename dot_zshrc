@@ -10,6 +10,9 @@ export PATH=$PATH:$HOME/.local/bin/
 source ~/antigen.zsh
 antigen init ~/.antigenrc
 
+# zoxide initialization
+eval "$(zoxide init zsh)"
+
 # Aliases
 alias lg=lazygit
 
@@ -17,3 +20,4 @@ alias l='exa'
 alias la='exa -a'
 alias ll='exa -lah --icons --sort=type'
 alias ls='exa --color=auto'
+
