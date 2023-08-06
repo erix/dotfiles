@@ -8,7 +8,8 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle ael-code/zsh-colored-man-pages
 
 # Load the theme.
-antigen theme robbyrussell
+#antigen theme robbyrussell
+antigen theme romkatv/powerlevel10k
 
 # Tell Antigen that you're done.
 antigen apply
