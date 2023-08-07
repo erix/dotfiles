@@ -1,3 +1,4 @@
+SYSTEM_TYPE=$(uname -s) # Get system type - Linux / MacOS (Darwin)
 
 export EDITOR=nvim
 
@@ -31,4 +32,6 @@ alias ls='exa --color=auto'
 
 eval "$(zoxide init zsh)"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ $SYSTEM_TYPE == "Linux" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
