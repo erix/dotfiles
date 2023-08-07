@@ -1,0 +1,5 @@
+brew "bat"
+brew "zoxide"
+brew "lazygit"
+brew "fzf"
+brew "exa"
