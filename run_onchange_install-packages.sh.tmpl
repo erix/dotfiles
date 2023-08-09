@@ -3,7 +3,7 @@
 brew bundle install
 {{ else if eq .chezmoi.os "linux" }}
 {{   if eq .chezmoi.osRelease.id "ubuntu" }}
-sudo apt install bat exa zoxide fzf --assume-yes
+sudo apt install bat exa zoxide --assume-yes
 
 # fix the bat executable
 if hash batcat 2> /dev/null; then
@@ -20,6 +20,3 @@ rm lazygit.tar.gz
 rm lazygit
 {{   end }}
 {{ end }}
-
-# Install fzf extensions
-$(brew --prefix)/opt/fzf/install --xdg --key-bindings --completion --no-update-rc
