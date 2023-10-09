@@ -31,8 +31,9 @@ elif [[ $SYSTEM_TYPE == "Darwin" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-
 eval "$(zoxide init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 fixssh() {
 eval $(tmux show-env -s |grep '^SSH_')
