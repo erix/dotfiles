@@ -1,0 +1,34 @@
+{{ if eq .osid "linux-debian" "linux-raspbian" "linux-ubuntu" -}}
+{{ $packages := list
+     "bat"
+     "build-essential"
+     "curl"
+     "exa"
+     "fd-find"
+     "fzf"
+     "git"
+     "git-lfs"
+     "ripgrep"
+     "zsh"
+     "zoxide" -}}
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
+#!/bin/bash
+
+set -eufo pipefail
+
+echo -e "Installing packages..."
+{{ $sudo }}apt-get update
+{{ $sudo }}apt-get install -y {{ $packages | join " " }}
+
+# fix the bat executable
+if hash batcat 2> /dev/null; then
+  mkdir -p ~/.local/bin
+  ln -s /usr/bin/batcat ~/.local/bin/bat  
+fi
+
+{{ end }}

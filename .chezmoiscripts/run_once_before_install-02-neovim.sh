@@ -2,8 +2,7 @@
 
 echo -e "Setting up Neovim with NvChad"
 # Neovim and NvChad dependencies install
-brew install neovim
-brew install ripgrep
+#brew install neovim
 
 # Make sure we have clear install
 if [ -d $HOME/.config/nvim ]; then
@@ -14,4 +13,4 @@ if [ -d $HOME/.local/share/nvim ]; then
 fi
 
 # NvChad
-git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 && nvim
+git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 

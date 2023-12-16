@@ -1,4 +1,12 @@
-SYSTEM_TYPE=$(uname -s) # Get system type - Linux / MacOS (Darwin)
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -25,9 +33,8 @@ alias less='bat --style=plain'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [[ $SYSTEM_TYPE == "Linux" ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [[ $SYSTEM_TYPE == "Darwin" ]]; then
+SYSTEM_TYPE=$(uname -s) # Get system type - Linux / MacOS (Darwin)
+if [[ $SYSTEM_TYPE == "Darwin" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 

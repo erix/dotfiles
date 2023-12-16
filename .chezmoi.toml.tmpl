@@ -1,7 +1,13 @@
+{{- $osID := .chezmoi.os -}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
+{{-   $osID = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
 {{- $email := promptStringOnce . "email" "Email address" -}}
 
 [data]
     email = {{ $email | quote }}
+    osid = {{ $osID | quote }}
 
 [git]
     autoCommit = true
