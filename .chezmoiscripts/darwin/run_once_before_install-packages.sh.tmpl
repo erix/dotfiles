@@ -9,13 +9,20 @@ set -eufo pipefail
      "fd"
      "git"
      "git-lfs"
+     "gh"
      "node"
      "ripgrep"
      "tmux"
      "wget"
-     "zoxide" -}}
+     "zoxide" 
+-}}
 
-{{ $casks := list -}}
+{{ $casks := list 
+     "iterm2"
+     "visual-studio-code"
+     "vlc"
+     "1password-cli"
+-}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
