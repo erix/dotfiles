@@ -8,7 +8,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle ael-code/zsh-colored-man-pages
 
 # https://github.com/unixorn/fzf-zsh-plugin#contents
-antigen bundle unixorn/fzf-zsh-plugin@main
+#antigen bundle unixorn/fzf-zsh-plugin@main
 
 # https://github.com/jeffreytse/zsh-vi-mode#-usage
 antigen bundle jeffreytse/zsh-vi-mode
