@@ -20,6 +20,7 @@ source ~/antigen.zsh
 antigen init ~/.antigenrc
 
 # Aliases
+alias git='LC_ALL=en_US git'
 alias lg=lazygit
 
 alias l='eza'
