@@ -22,10 +22,10 @@ antigen init ~/.antigenrc
 # Aliases
 alias lg=lazygit
 
-alias l='exa'
-alias la='exa -a'
-alias ll='exa -lah --icons --sort=type'
-alias ls='exa --color=auto'
+alias l='eza'
+alias la='eza -a'
+alias ll='eza -lah --icons --sort=type'
+alias ls='eza --color=auto'
 
 alias cat='bat --style=plain --paging=never'
 alias less='bat --style=plain'
@@ -39,6 +39,7 @@ if [[ $SYSTEM_TYPE == "Darwin" ]]; then
 fi
 
 eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
