@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $brews := list
+"bat"
+"curl"
+"eza"
+"fd"
+"git"
+"git-lfs"
+"gh"
+"lazygit"
+"node"
+"ripgrep"
+"tmux"
+"wget"
+"zoxide"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+EOF
