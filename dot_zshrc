@@ -36,6 +36,8 @@ alias less='bat --style=plain'
 SYSTEM_TYPE=$(uname -s) # Get system type - Linux / MacOS (Darwin)
 if [[ $SYSTEM_TYPE == "Darwin" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
+elif [[ $SYSTEM_TYPE == "Linux" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 eval "$(zoxide init zsh)"
@@ -44,3 +46,4 @@ source <(fzf --zsh)
 fixssh() {
 eval $(tmux show-env -s |grep '^SSH_')
 }
+
