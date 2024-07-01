@@ -2,4 +2,7 @@
 
 set -eufo pipefail
 
-chsh -s $(which zsh)
+# rebuild the bat theme cache
+bat cache --build
+
+#chsh -s $(which zsh)
