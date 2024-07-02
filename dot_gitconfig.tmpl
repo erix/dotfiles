@@ -3,7 +3,15 @@
 	name = Erik Simko
 [credential "https://github.com"]
     helper =
+{{ if .chezmoi.os "darwin" }}
+    helper = !/usr/local/bin/gh auth git-credential
+{{ elif ne .chezmoi.os "linux" }}
     helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+{{ end }}
 [credential "https://gist.github.com"]
     helper =
+{{ if .chezmoi.os "darwin" }}
+    helper = !/usr/local/bin/gh auth git-credential
+{{ elif ne .chezmoi.os "linux" }}
     helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+{{ end }}
