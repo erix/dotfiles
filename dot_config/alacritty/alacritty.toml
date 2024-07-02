@@ -81,7 +81,10 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [cursor]
 unfocused_hollow = true
-vi_mode_style    = "None"
+vi_mode_style    = "Block"
+
+[cursor.style]
+shape = "Beam"
 
 [[keyboard.bindings]]
 action = "Paste"
