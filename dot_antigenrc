@@ -11,7 +11,7 @@ antigen bundle ael-code/zsh-colored-man-pages
 #antigen bundle unixorn/fzf-zsh-plugin@main
 
 # https://github.com/jeffreytse/zsh-vi-mode#-usage
-antigen bundle jeffreytse/zsh-vi-mode
+#antigen bundle jeffreytse/zsh-vi-mode
 
 # Load the theme.
 # @see https://github.com/zsh-users/antigen/issues/675
