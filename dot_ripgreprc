@@ -1,0 +1,38 @@
+# Ripgrep configuration file
+# Location: ~/.ripgreprc
+
+# Add custom file types
+--type-add=svelte:*.svelte
+
+# Always use colors
+--colors=line:fg:yellow
+--colors=line:style:bold
+--colors=path:fg:green
+--colors=path:style:bold
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=match:style:nobold
+
+# Show line numbers
+--line-number
+
+# Case insensitive search unless uppercase letters are used
+--smart-case
+
+# Follow symbolic links
+--follow
+
+# Don't search in certain directories
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!.svelte-kit/*
+--glob=!build/*
+--glob=!dist/*
+--glob=!.next/*
+--glob=!coverage/*
+
+# Max columns to prevent very long lines from slowing down search
+--max-columns=150
+
+# Show context around matches
+--context=2
