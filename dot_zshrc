@@ -47,3 +47,6 @@ fixssh() {
 eval $(tmux show-env -s |grep '^SSH_')
 }
 
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
