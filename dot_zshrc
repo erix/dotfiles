@@ -15,6 +15,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Homebrew setup (supports macOS arm64, macOS x86_64, and Linux)
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+
 # Antigen
 source ~/antigen.zsh
 antigen init ~/.antigenrc
@@ -33,12 +43,6 @@ alias less='bat --style=plain'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-SYSTEM_TYPE=$(uname -s) # Get system type - Linux / MacOS (Darwin)
-if [[ $SYSTEM_TYPE == "Darwin" ]]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-elif [[ $SYSTEM_TYPE == "Linux" ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
 
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
@@ -50,3 +54,5 @@ eval $(tmux show-env -s |grep '^SSH_')
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 . "$HOME/.local/share/../bin/env"
+
+alias gam="/Users/eriksimko/bin/gam7/gam"
