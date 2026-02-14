@@ -44,8 +44,15 @@ alias less='bat --style=plain'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
+# Initialize zoxide (smart cd) if available
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# Initialize fzf (fuzzy finder) if available
+if command -v fzf &>/dev/null; then
+  source <(fzf --zsh)
+fi
 
 fixssh() {
 eval $(tmux show-env -s |grep '^SSH_')
@@ -53,4 +60,7 @@ eval $(tmux show-env -s |grep '^SSH_')
 
 export PATH="$HOME/.npm-global/bin:$PATH"
 
-. "$HOME/.local/share/../bin/env"
+# Source local env if it exists
+if [[ -f "$HOME/.local/bin/env" ]]; then
+  . "$HOME/.local/bin/env"
+fi
