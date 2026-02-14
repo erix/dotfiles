@@ -1,0 +1,24 @@
+{{ if eq .osid "linux-debian" "linux-raspbian" "linux-ubuntu" -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
+echo -e "\033[0;32m>>>>> Installing Linux-specific essentials <<<<<\033[0m"
+
+# Install only packages that are Linux-specific and not available via Homebrew
+{{ $packages := list
+     "libfuse2"
+     "unzip"
+     "zsh" -}}
+
+{{ $sudo }}apt-get update
+{{ $sudo }}apt-get install -y {{ $packages | join " " }}
+
+echo -e "\033[0;32m>>>>> Linux essentials installed <<<<<\033[0m"
+
+{{ end -}}

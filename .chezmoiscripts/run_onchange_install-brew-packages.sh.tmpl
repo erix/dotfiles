@@ -2,24 +2,33 @@
 
 set -eufo pipefail
 
-{{ $brews := list
-"bat"
-"curl"
-"eza"
-"fd"
-"git"
-"git-lfs"
-"gh"
-"lazygit"
-"node"
-"ripgrep"
-"tmux"
-"wget"
-"zoxide"
--}}
-
-brew bundle --no-lock --file=/dev/stdin <<EOF
-{{ range ($brews | sortAlpha | uniq) -}}
-brew "{{ . }}"
+# Ensure Homebrew is in PATH
+{{ if eq .chezmoi.os "linux" -}}
+if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ -d "$HOME/.linuxbrew" ]]; then
+  eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+fi
 {{ end -}}
-EOF
+
+# Verify brew is available
+if ! command -v brew &>/dev/null; then
+  echo -e "\033[0;31mError: Homebrew is not installed or not in PATH\033[0m"
+  exit 1
+fi
+
+echo -e "\033[0;32m>>>>> Installing Homebrew packages from Brewfile <<<<<\033[0m"
+
+# Install from global Brewfile (~/.Brewfile)
+if [[ -f "$HOME/.Brewfile" ]]; then
+  # Run brew bundle - don't fail on existing machines with partial errors
+  if brew bundle --global; then
+    echo -e "\033[0;32m>>>>> Homebrew packages installed successfully <<<<<\033[0m"
+  else
+    echo -e "\033[0;33mWarning: Some Brewfile packages failed to install (may be architecture or conflict issues)\033[0m"
+    echo -e "\033[0;33mOn fresh machines, this should work without issues\033[0m"
+  fi
+else
+  echo -e "\033[0;31mError: Brewfile not found at $HOME/.Brewfile\033[0m"
+  exit 1
+fi

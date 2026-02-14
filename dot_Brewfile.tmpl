@@ -1,0 +1,63 @@
+# Brewfile - Cross-platform packages for macOS and Linux
+# This file is managed by chezmoi and templated for each OS
+
+# Taps
+tap "homebrew/bundle"
+
+# CLI Tools - Development
+brew "git"
+brew "git-lfs"
+brew "gh"
+brew "lazygit"
+brew "node"
+
+# Programming Languages
+brew "go"
+brew "python@3.13"
+brew "rust"
+brew "bun"         # Fast JavaScript runtime
+
+# CLI Tools - Modern Unix replacements
+brew "bat"        # cat replacement
+brew "eza"        # ls replacement
+brew "fd"         # find replacement
+brew "fzf"        # fuzzy finder
+brew "ripgrep"    # grep replacement
+brew "zoxide"     # cd replacement
+
+# CLI Tools - Utilities
+brew "curl"
+brew "wget"
+brew "tmux"
+brew "neovim"      # text editor
+brew "tree-sitter" # parser generator (used by neovim)
+
+# Container Tools
+brew "docker"
+brew "docker-compose"
+brew "colima"      # Docker runtime (alternative to Docker Desktop)
+
+{{ if ne .isWorkMachine true -}}
+# Home/Personal Machine Only
+brew "kubernetes-cli"  # kubectl
+brew "k9s"            # Kubernetes TUI
+brew "kubeseal"       # Sealed secrets for Kubernetes
+{{ end -}}
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS-specific CLI tools
+brew "zsh"        # shell (Linux installs via apt)
+
+{{ end -}}
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS-only casks (GUI applications)
+tap "homebrew/cask-fonts"
+
+cask "alacritty"
+cask "font-fira-code-nerd-font"
+cask "font-roboto-mono-nerd-font"
+cask "font-inconsolata-nerd-font"
+cask "visual-studio-code"
+cask "vlc"
+cask "1password-cli"
+{{ end -}}

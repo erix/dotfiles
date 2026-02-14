@@ -2,8 +2,13 @@
 
 set -eufo pipefail
 
-# rebuild the bat theme cache
-bat cache --build
+# Rebuild the bat theme cache if bat is available
+if command -v bat &>/dev/null; then
+  echo "Rebuilding bat cache..."
+  bat cache --build
+else
+  echo "Warning: bat is not installed, skipping cache build"
+fi
 
 # Check if the current shell is already zsh
 if [[ "$SHELL" != */zsh ]]; then

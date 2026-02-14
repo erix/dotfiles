@@ -4,10 +4,12 @@
 {{- end -}}
 
 {{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $isWorkMachine := promptBoolOnce . "isWorkMachine" "Is this a work machine" -}}
 
 [data]
     email = {{ $email | quote }}
     osid = {{ $osID | quote }}
+    isWorkMachine = {{ $isWorkMachine }}
 
 [git]
     autoCommit = true
