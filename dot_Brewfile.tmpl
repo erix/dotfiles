@@ -15,7 +15,10 @@ brew "node"
 brew "go"
 brew "python@3.13"
 brew "rust"
-brew "bun"         # Fast JavaScript runtime
+
+{{ if eq .chezmoi.os "darwin" -}}
+brew "bun"         # Fast JavaScript runtime (macOS only)
+{{ end -}}
 
 # CLI Tools - Modern Unix replacements
 brew "bat"        # cat replacement
