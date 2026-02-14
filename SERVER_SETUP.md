@@ -43,25 +43,39 @@ In 1Password web interface:
 5. **Copy the token** (starts with `ops_...`)
    - ⚠️ Save it securely! You can't view it again
 
-### 2. Set Environment Variable
+### 2. Bootstrap Dotfiles (Interactive)
 
-On your Linux server:
+Chezmoi will prompt for the token during setup:
 
 ```bash
-# Add to ~/.bashrc or ~/.zshrc (or set in your deployment)
-export OP_SERVICE_ACCOUNT_TOKEN="ops_your_token_here_very_long_string"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply erix/dotfiles
 
-# Make it permanent
-echo 'export OP_SERVICE_ACCOUNT_TOKEN="ops_your_token_here"' >> ~/.bashrc
-source ~/.bashrc
+# Prompts:
+Email address: your@email.com
+Machine type (home/work/server): server
+1Password Service Account Token (ops_...): ops_paste_your_token_here
+```
 
-# Verify it's set
-echo $OP_SERVICE_ACCOUNT_TOKEN
+The token will be stored securely in `~/.config/chezmoi/chezmoi.toml`.
+
+### 2. Alternative: Set Environment Variable First
+
+If you prefer to set it beforehand (for automation):
+
+```bash
+# Set the token before running chezmoi
+export OP_SERVICE_ACCOUNT_TOKEN="ops_your_token_here"
+
+# Then bootstrap
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply erix/dotfiles
+
+# When prompted for machine type, select: server
+# Token prompt will be skipped if OP_SERVICE_ACCOUNT_TOKEN is already set
 ```
 
 **Security Note**: For production servers, use a secrets manager (AWS Secrets Manager, Kubernetes secrets, etc.) instead of storing in shell config.
 
-### 3. Bootstrap Dotfiles
+### 3. Verify Setup
 
 ```bash
 # With token set, run chezmoi
@@ -71,8 +85,6 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply erix/dotfiles
 Email address: your@email.com
 Machine type (home/work/server): server  # ← Select server
 ```
-
-### 4. Verify
 
 Check that secrets were retrieved:
 
@@ -218,15 +230,29 @@ env:
 For your AI assistant setup:
 
 ```bash
-# On your Linux server
-export OP_SERVICE_ACCOUNT_TOKEN="ops_OpenClaw_token_here"
+# On your Linux server - just run this:
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply erix/dotfiles
 
-# Select: server
+# Interactive prompts:
+Email address: erik@example.com
+Machine type (home/work/server): server
+1Password Service Account Token: ops_paste_your_OpenClaw_token_here
+
 # This will:
 # - Install all dev tools
 # - Configure Claude Code with token from 1Password
 # - Configure GitHub CLI with token from 1Password
 # - Skip Kubernetes tools
 # - Use token-based 1Password (no interactive login)
+```
+
+### For Automated/CI Setup
+
+If automating (no interactive prompts):
+
+```bash
+export OP_SERVICE_ACCOUNT_TOKEN="ops_OpenClaw_token"
+chezmoi init --apply erix/dotfiles \
+  --promptString email=bot@example.com \
+  --promptString machineType=server
 ```

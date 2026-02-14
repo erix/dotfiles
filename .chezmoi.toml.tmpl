@@ -8,6 +8,12 @@
 {{- $machineTypeChoices := list "home" "work" "server" -}}
 {{- $machineType := promptChoiceOnce . "machineType" "Machine type" $machineTypeChoices "home" -}}
 
+{{- /* For server machines, prompt for 1Password service account token */ -}}
+{{- $opServiceAccountToken := "" -}}
+{{- if eq $machineType "server" -}}
+{{-   $opServiceAccountToken = promptStringOnce . "opServiceAccountToken" "1Password Service Account Token (ops_...)" -}}
+{{- end -}}
+
 {{- /* Backwards compatibility: set isWorkMachine based on machineType */ -}}
 {{- $isWorkMachine := eq $machineType "work" -}}
 
@@ -26,7 +32,12 @@
 # Server/AI Assistant - Use 1Password Service Account with token
 [onepassword]
     mode = "service-account"
-    # Set OP_SERVICE_ACCOUNT_TOKEN environment variable before running chezmoi
+
+{{- if $opServiceAccountToken }}
+# Export the service account token for 1Password CLI
+[env]
+    OP_SERVICE_ACCOUNT_TOKEN = {{ $opServiceAccountToken | quote }}
+{{- end }}
 {{ else -}}
 # Home/Work - Use regular 1Password account
 [onepassword]
