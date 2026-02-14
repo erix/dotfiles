@@ -1,10 +1,18 @@
-# Machine Types - Work vs Home Setup
+# Machine Types - Home / Work / Server Setup
 
-This dotfiles setup supports different package sets for work and home machines.
+This dotfiles setup supports three machine types with different configurations.
 
-## 🏠 vs 💼 Package Differences
+## 🏠 Home / 💼 Work / 🖥️ Server
 
-### Both Machines Get:
+### Machine Types
+
+| Type | Kubernetes | 1Password Mode | Use Case |
+|------|------------|----------------|----------|
+| **home** | ✅ kubectl, k9s, kubeseal | Interactive account | Personal laptop |
+| **work** | ❌ Skipped | Interactive account | Work laptop |
+| **server** | ❌ Skipped | Service account token | AI assistant, automation |
+
+### All Machines Get:
 - Core dev tools: git, gh, lazygit, node
 - Programming languages: Go, Python, Rust, Bun
 - Modern CLI tools: bat, eza, fd, fzf, ripgrep, zoxide, neovim
@@ -14,8 +22,9 @@ This dotfiles setup supports different package sets for work and home machines.
 ### Home Machine Only:
 - Kubernetes tools: kubectl, k9s, kubeseal
 
-### Work Machine:
-- Skips Kubernetes tools
+### Server Machine Special Config:
+- 1Password uses service account (token-based, no interactive login)
+- Requires `OP_SERVICE_ACCOUNT_TOKEN` environment variable
 
 ---
 
@@ -28,7 +37,24 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply yourusername/dotfiles
 
 # Prompts:
 Email address: your@email.com
-Is this a work machine (true/false): false  # ← Answer here
+Machine type (home/work/server): home  # ← Choose one
+```
+
+### For Server/AI Assistant Setup
+
+Before running chezmoi on a server, set your 1Password service account token:
+
+```bash
+# Get your service account token from 1Password
+# https://developer.1password.com/docs/service-accounts/get-started/
+
+export OP_SERVICE_ACCOUNT_TOKEN="ops_your_token_here"
+
+# Then run chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply yourusername/dotfiles
+
+# When prompted, select:
+Machine type: server
 ```
 
 ---
@@ -84,10 +110,11 @@ cat ~/Brewfile
 
 ## 🎯 Quick Reference
 
-| Setting | Kubernetes Tools | Use Case |
-|---------|------------------|----------|
-| `isWorkMachine = false` | ✅ Installed | Home/Personal laptop |
-| `isWorkMachine = true` | ❌ Skipped | Work laptop |
+| Setting | Kubernetes | 1Password Mode | Use Case |
+|---------|------------|----------------|----------|
+| `machineType = "home"` | ✅ Installed | account | Personal laptop |
+| `machineType = "work"` | ❌ Skipped | account | Work laptop |
+| `machineType = "server"` | ❌ Skipped | service-account | AI assistant, server |
 
 ---
 

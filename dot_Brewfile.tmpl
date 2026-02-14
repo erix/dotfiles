@@ -37,7 +37,7 @@ brew "docker"
 brew "docker-compose"
 brew "colima"      # Docker runtime (alternative to Docker Desktop)
 
-{{ if ne .isWorkMachine true -}}
+{{ if eq .machineType "home" -}}
 # Home/Personal Machine Only
 brew "kubernetes-cli"  # kubectl
 brew "k9s"            # Kubernetes TUI

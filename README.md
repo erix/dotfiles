@@ -29,12 +29,21 @@ Replace `yourusername/dotfiles` with your repo!
 The one-line command will:
 - Install chezmoi
 - Clone your dotfiles repository
+- Prompt for machine type (home/work/server)
 - **Linux**: Install Homebrew + essential packages
 - **macOS**: Use existing Homebrew
 - Install all packages from Brewfile
 - Apply all dotfiles to your home directory
 - Change shell to zsh
 - Configure everything automatically
+
+### Machine Types
+
+- **home** - Personal laptop with Kubernetes tools, interactive 1Password
+- **work** - Work laptop without Kubernetes, interactive 1Password
+- **server** - AI assistant/automation, token-based 1Password (requires `OP_SERVICE_ACCOUNT_TOKEN`)
+
+See [MACHINE_TYPES.md](MACHINE_TYPES.md) and [SERVER_SETUP.md](SERVER_SETUP.md) for details.
 
 The setup will:
 1. **Linux only**: Install Homebrew and essential build tools

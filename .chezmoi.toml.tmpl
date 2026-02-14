@@ -4,13 +4,31 @@
 {{- end -}}
 
 {{- $email := promptStringOnce . "email" "Email address" -}}
-{{- $isWorkMachine := promptBoolOnce . "isWorkMachine" "Is this a work machine" -}}
+
+{{- $machineTypeChoices := list "home" "work" "server" -}}
+{{- $machineType := promptChoiceOnce . "machineType" "Machine type" $machineTypeChoices "home" -}}
+
+{{- /* Backwards compatibility: set isWorkMachine based on machineType */ -}}
+{{- $isWorkMachine := eq $machineType "work" -}}
 
 [data]
     email = {{ $email | quote }}
     osid = {{ $osID | quote }}
+    machineType = {{ $machineType | quote }}
     isWorkMachine = {{ $isWorkMachine }}
+    isServerMachine = {{ eq $machineType "server" }}
 
 [git]
     autoCommit = true
     autoPush = true
+
+{{ if eq $machineType "server" -}}
+# Server/AI Assistant - Use 1Password Service Account with token
+[onepassword]
+    mode = "service-account"
+    # Set OP_SERVICE_ACCOUNT_TOKEN environment variable before running chezmoi
+{{ else -}}
+# Home/Work - Use regular 1Password account
+[onepassword]
+    mode = "account"
+{{ end -}}
