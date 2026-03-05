@@ -15,5 +15,9 @@ export PATH=$PATH:$HOME/.local/bin/
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
-export CLAUDE_CODE_OAUTH_TOKEN={{ onepasswordRead "op://ClawdBot/Claude Max Token/credential" }}
+http_proxy=http://127.0.0.1:3128/ 
+https_proxy=${http_proxy} 
+HTTP_PROXY=${http_proxy} 
+HTTPS_PROXY=${http_proxy} 
+export http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
 
