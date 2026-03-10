@@ -1,0 +1,38 @@
+{
+    "cmake.showOptionsMovedNotification": false,
+    "[cpp]": {
+        "editor.defaultFormatter": null
+    },
+    "remote.SSH.useExecServer": false,
+    "editor.fontFamily": "RobotoMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "githubPullRequests.remotes": [
+        "origin"
+    ],
+    "chat.mcp.discovery.enabled": {
+        "claude-desktop": true,
+        "windsurf": true,
+        "cursor-global": true,
+        "cursor-workspace": true
+    },
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "editor.renderWhitespace": "none",
+    "files.trimTrailingWhitespace": true,
+    "chat.agent.maxRequests": 50,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "editor.inlayHints.enabled": "on",
+    "github.copilot.advanced": {
+        "authProvider": "github-enterprise"
+    },
+    "github-enterprise.uri": "https://bmw.ghe.com/",
+    "chat.viewSessions.orientation": "stacked",
+    "remote.extensionKind": {
+        "GitHub.copilot": ["ui"],
+        "GitHub.copilot-chat": ["ui"]
+    }
+}
