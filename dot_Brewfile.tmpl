@@ -51,9 +51,7 @@ brew "zsh"        # shell (Linux installs via apt)
 {{ end -}}
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS-only casks (GUI applications)
-tap "homebrew/cask-fonts"
-
-cask "alacritty"
+cask "wezterm"
 cask "font-fira-code-nerd-font"
 cask "font-roboto-mono-nerd-font"
 cask "font-inconsolata-nerd-font"

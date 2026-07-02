@@ -16,7 +16,7 @@ The one-line command installs things in this order:
 
 1. **`get.chezmoi.io` script** → Downloads chezmoi as standalone binary (no Homebrew!)
 2. **chezmoi** → Clones your dotfiles and runs setup scripts
-3. **Setup scripts** → Install Homebrew (Linux) or use existing (macOS)
+3. **Setup scripts** → Install Homebrew if it is missing
 4. **Homebrew** → Installs all packages from Brewfile
 
 **Key insight**: Chezmoi is installed as a standalone binary FIRST, so it doesn't need Homebrew to exist yet!
@@ -33,7 +33,7 @@ The one-line command installs things in this order:
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply yourusername/dotfiles
 ```
 
-This installs chezmoi as a standalone binary (no Homebrew required), then chezmoi uses your existing Homebrew or installs packages.
+This installs chezmoi as a standalone binary (no Homebrew required), then chezmoi installs Homebrew if needed and installs packages.
 
 ### Alternative: If You Prefer Homebrew First
 
@@ -117,9 +117,10 @@ Then chezmoi will automatically:
 #### On macOS:
 ```
 ✓ Clone dotfiles repository
+✓ Install Homebrew if needed
 ✓ Install all Brewfile packages via Homebrew
   → CLI tools: git, node, bat, eza, etc.
-  → GUI apps: Alacritty, VSCode, VLC, etc.
+  → GUI apps: WezTerm, VSCode, VLC, etc.
   → Fonts: Fira Code Nerd Font, etc.
 ✓ Apply all dotfiles to ~
 ✓ Configure macOS defaults
@@ -287,7 +288,7 @@ Everything from your `Brewfile`:
 - **Dev tools**: git, git-lfs, gh, lazygit, node
 - **Modern CLI**: bat, eza, fd, ripgrep, zoxide, tmux
 - **Utilities**: curl, wget
-- **macOS only**: Alacritty, VSCode, VLC, Fonts
+- **macOS only**: WezTerm, VSCode, VLC, Fonts
 
 All your dotfiles:
 - `.zshrc` with aliases and configurations

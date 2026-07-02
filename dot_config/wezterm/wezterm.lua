@@ -4,6 +4,8 @@ local config = wezterm.config_builder()
 
 config.color_scheme = "Catppuccin Macchiato"
 config.automatically_reload_config = true
+config.window_background_opacity = 0.88
+config.macos_window_background_blur = 20
 config.font = wezterm.font({
 	family = "RobotoMono Nerd Font",
 	-- stretch = "UltraExpanded",

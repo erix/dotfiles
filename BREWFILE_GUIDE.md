@@ -35,7 +35,7 @@ Add inside the conditional block:
 ```ruby
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS-only casks
-cask "alacritty"
+cask "wezterm"
 cask "your-new-app"  # ← Add here
 {{ end -}}
 ```
@@ -109,7 +109,7 @@ brew "ripgrep"    # Better grep
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS-only applications
 cask "visual-studio-code"
-cask "alacritty"
+cask "wezterm"
 {{ end -}}
 ```
 

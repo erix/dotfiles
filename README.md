@@ -31,7 +31,7 @@ The one-line command will:
 - Clone your dotfiles repository
 - Prompt for machine type (home/work/server)
 - **Linux**: Install Homebrew + essential packages
-- **macOS**: Use existing Homebrew
+- **macOS**: Install Homebrew if it is missing
 - Install all packages from Brewfile
 - Apply all dotfiles to your home directory
 - Change shell to zsh
@@ -46,7 +46,7 @@ The one-line command will:
 See [MACHINE_TYPES.md](MACHINE_TYPES.md) and [SERVER_SETUP.md](SERVER_SETUP.md) for details.
 
 The setup will:
-1. **Linux only**: Install Homebrew and essential build tools
+1. Install Homebrew if it is missing
 2. Install all Homebrew packages (git, node, bat, eza, ripgrep, etc.)
 3. **macOS only**: Install Homebrew cask applications
 4. Configure zsh as default shell
@@ -59,14 +59,15 @@ Scripts run in this order (chezmoi naming convention):
 ### Linux
 1. `run_once_before_00-install-homebrew.sh` - Installs Homebrew on Linux
 2. `run_once_before_01-install-linux-essentials.sh` - Installs Linux-specific packages (libfuse2, zsh, etc.)
-3. `run_onchange_install-brew-packages.sh` - Installs packages from `Brewfile`
+3. `run_onchange_after_install-brew-packages.sh` - Installs packages from `Brewfile`
 4. `run_once_after_chsh.sh` - Changes shell to zsh and builds bat cache
 
 ### macOS
-1. `run_onchange_install-brew-packages.sh` - Installs packages and casks from `Brewfile`
-2. `run_onchange_after_macos_defaults.sh` - Sets macOS-specific defaults
-3. `run_onchange_after_configure.sh` - Additional macOS configuration
-4. `run_once_after_chsh.sh` - Changes shell to zsh and builds bat cache
+1. `run_once_before_00-install-homebrew.sh` - Installs Homebrew if it is missing
+2. `run_onchange_after_install-brew-packages.sh` - Installs packages and casks from `Brewfile`
+3. `run_onchange_after_macos_defaults.sh` - Sets macOS-specific defaults
+4. `run_onchange_after_configure.sh` - Additional macOS configuration
+5. `run_once_after_chsh.sh` - Changes shell to zsh and builds bat cache
 
 ## Installed Packages
 
@@ -76,7 +77,7 @@ Scripts run in this order (chezmoi naming convention):
 - **Utilities**: curl, wget
 
 ### macOS Casks
-- Alacritty (terminal emulator)
+- WezTerm (terminal emulator)
 - Nerd Fonts (Fira Code, Roboto Mono, Inconsolata)
 - Visual Studio Code
 - VLC
