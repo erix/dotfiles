@@ -1,0 +1,134 @@
+#!/bin/bash
+
+set -uo pipefail
+
+failures=0
+warnings=0
+
+ok() {
+  printf "OK   %s\n" "$1"
+}
+
+warn() {
+  printf "WARN %s\n" "$1"
+  warnings=$((warnings + 1))
+}
+
+fail() {
+  printf "FAIL %s\n" "$1"
+  failures=$((failures + 1))
+}
+
+has_command() {
+  command -v "$1" &>/dev/null
+}
+
+check_command() {
+  local name="$1"
+  local command_name="${2:-$1}"
+
+  if has_command "$command_name"; then
+    ok "$name"
+  else
+    fail "$name not found on PATH"
+  fi
+}
+
+check_file() {
+  local path="$1"
+
+  if [[ -e "$path" ]]; then
+    ok "$path"
+  else
+    fail "$path missing"
+  fi
+}
+
+check_dir() {
+  local path="$1"
+
+  if [[ -d "$path" ]]; then
+    ok "$path"
+  else
+    fail "$path missing"
+  fi
+}
+
+check_tmux_plugin() {
+  local name="$1"
+  local path="$HOME/.config/tmux/plugins/$name"
+
+  if [[ -d "$path" ]]; then
+    ok "tmux plugin: $name"
+  else
+    fail "tmux plugin missing: $name"
+  fi
+}
+
+echo "Dotfiles setup check"
+echo
+
+if has_command chezmoi || [[ -x "$HOME/bin/chezmoi" ]]; then
+  ok "chezmoi"
+else
+  fail "chezmoi not found on PATH or at $HOME/bin/chezmoi"
+fi
+check_command "brew" "brew"
+check_file "$HOME/.Brewfile"
+
+if has_command brew && [[ -f "$HOME/.Brewfile" ]]; then
+  if brew bundle --global check &>/dev/null; then
+    ok "brew bundle --global check"
+  else
+    fail "brew bundle --global check"
+  fi
+fi
+
+check_command "zsh" "zsh"
+check_command "tmux" "tmux"
+check_file "$HOME/.config/tmux/tmux.conf"
+check_dir "$HOME/.config/tmux/plugins/tpm"
+check_tmux_plugin "tmux"
+check_tmux_plugin "tmux-sensible"
+check_tmux_plugin "vim-tmux-navigator"
+check_tmux_plugin "tmux-yank"
+
+check_command "wezterm" "wezterm"
+check_file "$HOME/.config/wezterm/wezterm.lua"
+if [[ -f "/System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/SF-Mono-Regular.otf" ]]; then
+  ok "SF Mono terminal font"
+else
+  warn "SF Mono terminal font not found"
+fi
+
+check_command "gh" "gh"
+if has_command gh; then
+  if gh auth status &>/dev/null; then
+    ok "gh auth"
+  else
+    warn "gh auth not logged in or token invalid"
+  fi
+fi
+
+check_command "op" "op"
+if has_command op; then
+  if op account list &>/dev/null; then
+    ok "1Password CLI account"
+  else
+    warn "1Password CLI not signed in"
+  fi
+fi
+
+check_file "$HOME/.config/gh/hosts.yml"
+
+echo
+if ((failures > 0)); then
+  printf "Result: %d failure(s), %d warning(s)\n" "$failures" "$warnings"
+  exit 1
+fi
+
+printf "Result: OK"
+if ((warnings > 0)); then
+  printf " with %d warning(s)" "$warnings"
+fi
+printf "\n"
