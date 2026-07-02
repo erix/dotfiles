@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+tmux_config="$HOME/.config/tmux/tmux.conf"
+tpm_install="$HOME/.config/tmux/plugins/tpm/bin/install_plugins"
+
+if ! command -v tmux &>/dev/null; then
+  echo "Warning: tmux is not installed, skipping TPM plugin install"
+  exit 0
+fi
+
+if [[ ! -f "$tmux_config" ]]; then
+  echo "Warning: tmux config not found at $tmux_config, skipping TPM plugin install"
+  exit 0
+fi
+
+if [[ ! -x "$tpm_install" ]]; then
+  echo "Warning: TPM installer not found at $tpm_install, skipping plugin install"
+  exit 0
+fi
+
+echo -e "\033[0;32m>>>>> Installing tmux plugins with TPM <<<<<\033[0m"
+"$tpm_install"
